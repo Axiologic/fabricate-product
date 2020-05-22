@@ -1,0 +1,28 @@
+{
+  "name": "cardinal-app-template",
+  "version": "1.0.0",
+  "description": "Cardinal application template",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node ./node_modules/octopus/scripts/run",
+    "update": "npm run install",
+    "web": "ws --spa ./index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrivateSky/cardinal-app-template.git"
+  },
+  "dependencies": {
+    "octopus": "git+https://github.com/PrivateSky/octopus.git#1.0.1",
+    "local-web-server": "^3.0.7"
+  },
+  "keywords": [
+    "cardinal"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PrivateSky/cardinal-app-template/issues"
+  },
+  "homepage": "https://github.com/PrivateSky/cardinal-app-template#readme"
+}
