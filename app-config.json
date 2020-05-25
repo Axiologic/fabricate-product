@@ -14,10 +14,7 @@
             "404": "/pages/404.html"
         },
         "pages": [{
-                "name": "Home",
-                "path": "/home",
-                "icon": "fa-home",
-                "pageSrc": "home.html"
+                "name": "Fabricate"
             }
         ]
     }
