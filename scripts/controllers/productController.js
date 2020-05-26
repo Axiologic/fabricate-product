@@ -1,38 +1,47 @@
 import ContainerController from '../../cardinal/controllers/base-controllers/ContainerController.js';
 import Product from './../models/product.js';
+import DossierBuilder from "../services/DossierBuilder.js";
 
 export default class productController extends ContainerController {
     constructor(element, history) {
         super(element);
 
-        this.DSUStorage.getItem("/data/product.json",  "json", (err, product)=>{
-            if(err){
-                product = new Product();
-            }else{
-                product = new Product(product);
-            }
-
-            this.setModel(product);
+        this.setModel(new Product());
+        this.on('openFeedback', (e) => {
+            this.feedbackEmitter = e.detail;
         });
 
-        this.on("save-product", (event)=>{
+
+        this.on("save-product", (event) => {
             let product = this.model;
+            console.log("Save product", product);
             let validationResult = product.validate();
-            if(Array.isArray(validationResult)){
-                for(let i = 0; i<validationResult.length; i++){
+            if (Array.isArray(validationResult)) {
+                for (let i = 0; i < validationResult.length; i++) {
                     let err = validationResult[i];
                     this.showError(err);
                 }
                 return;
             }
 
-            this.DSUStorage.setItem('/data/product.json', JSON.stringify(product), (err)=>{
-                if(err){
-                    this.showError(err, "Product update failed.");
-                    return;
-                }
-                history.push("/home");
-            });
+            this.buildDossier(product.serialID, "description.json", JSON.stringify(product));
+        });
+    }
+
+    buildDossier(seedKey, fileName, fileData) {
+        const dossierBuilder = new DossierBuilder();
+        dossierBuilder.getTransactionId((err, transactionId) => {
+            this.showError(err);
+            dossierBuilder.setSeedKey(transactionId, seedKey, (err) => {
+                this.showError(err);
+
+                dossierBuilder.addFileDataToDossier(transactionId, fileName, fileData, (err) => {
+                    this.showError(err);
+                    dossierBuilder.buildDossier(transactionId, (err, seed) => {
+                        this.showError(err);
+                    });
+                })
+            })
         });
     }
 
@@ -51,3 +60,12 @@ export default class productController extends ContainerController {
         this.feedbackEmitter(errMessage, title, type);
     }
 }
+
+// PackageDSU Files:
+//     description.json  {
+//     serialID:random,
+//         productID:serial,
+//         country:string,
+//         expiration:date,
+//         eleafletDSU:SEED
+// }

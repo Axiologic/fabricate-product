@@ -9,7 +9,7 @@ export default class Product {
                 this[prop] = product[prop];
             }
         }
-        this.serialID = crypto.randomBytes(32);
+        this.serialID = crypto.randomBytes(32).toString("hex");
     }
 
     validate(){
