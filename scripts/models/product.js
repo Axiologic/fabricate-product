@@ -1,8 +1,8 @@
 const crypto = require("pskcrypto");
 export default class Product {
-    productTypeSerialNumber;
+    productID;
     country;
-    expirationDate;
+    expiration;
     constructor(product) {
         if(typeof product !== undefined){
             for(let prop in product){
@@ -14,7 +14,7 @@ export default class Product {
 
     validate(){
         const errors = [];
-        if (!this.productTypeSerialNumber) {
+        if (!this.productID) {
             errors.push('Product type serial number is required.');
         }
 
@@ -22,7 +22,7 @@ export default class Product {
             errors.push('Country is required.');
         }
 
-        if (!this.expirationDate) {
+        if (!this.expiration) {
             errors.push('Expiration date is required.');
         }
 
