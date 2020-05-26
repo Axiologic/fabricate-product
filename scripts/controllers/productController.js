@@ -7,14 +7,13 @@ export default class productController extends ContainerController {
         super(element);
 
         this.setModel(new Product());
+
         this.on('openFeedback', (e) => {
             this.feedbackEmitter = e.detail;
         });
 
-
         this.on("save-product", (event) => {
             let product = this.model;
-            console.log("Save product", product);
             let validationResult = product.validate();
             if (Array.isArray(validationResult)) {
                 for (let i = 0; i < validationResult.length; i++) {
@@ -60,12 +59,3 @@ export default class productController extends ContainerController {
         this.feedbackEmitter(errMessage, title, type);
     }
 }
-
-// PackageDSU Files:
-//     description.json  {
-//     serialID:random,
-//         productID:serial,
-//         country:string,
-//         expiration:date,
-//         eleafletDSU:SEED
-// }
