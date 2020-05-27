@@ -7,62 +7,70 @@ function getBaseURL() {
 }
 
 function setEndpoint(transactionId, callback) {
-    const baseURL = getBaseURL();
-    const req = new XMLHttpRequest();
-    const url = `${baseURL}/setEndpoint/${transactionId}`;
+    const url = `/setEndpoint/${transactionId}`;
     const endpoint = "http://localhost:8080";
-
-    req.open("POST", url, true);
-    req.onload = function (oEvent) {
-        callback();
-    };
-
-    req.send(endpoint);
+    doPost(url, endpoint, callback);
 }
 
+function doPost(url, data, options, callback) {
+    if (typeof options === "function") {
+        callback = options;
+        options = {};
+    }
+
+    if (typeof data === "object" && !Buffer.isBuffer(data)) {
+        options = data;
+        data = undefined;
+    }
+
+    if (typeof data === "function") {
+        callback = data;
+        options = {};
+        data = undefined;
+    }
+
+    const baseURL = getBaseURL();
+    url = `${baseURL}${url}`;
+    fetch(url, {
+        method: 'POST',
+        headers: options.headers,
+        body: data
+    }).then((response) => {
+        return response.text().then((data) => {
+            if (!response.ok) {
+                throw new Error(`Post request failed.`);
+            }
+            let jsonData;
+            try {
+                jsonData = JSON.parse(data);
+            } catch (e) {
+                return callback(undefined, data);
+            }
+            callback(undefined, jsonData);
+        })
+    }).catch(err => {
+        return callback(err);
+    });
+}
 
 export default class DossierBuilder {
     constructor() {
     }
 
     getTransactionId(callback) {
-        const baseURL = getBaseURL();
-        const req = new XMLHttpRequest();
-
-        const url = `${baseURL}/begin`;
-
-        req.open("POST", url, true);
-        req.onload = function (oEvent) {
-            callback(undefined, req.response);
-        };
-
-        req.send();
+        doPost("/begin", callback)
     }
 
     setSeedKey(transactionId, seedKey, callback) {
-        const baseURL = getBaseURL();
-        const req = new XMLHttpRequest();
-        const url = `${baseURL}/setSeedKey/${transactionId}`;
+        const url = `/setSeedKey/${transactionId}`;
+        doPost(url, seedKey, callback);
 
-        req.open("POST", url, true);
-        req.onload = function (oEvent) {
-            callback();
-        };
-
-        req.send(seedKey);
     }
 
     addFileDataToDossier(transactionId, fileName, fileData, callback) {
+        const url = `/addFile/${transactionId}`;
+        doPost(url, fileData, {headers: {"x-dossier-path": fileName}}, callback);
 
-        const req = new XMLHttpRequest();
-        const url = `${getBaseURL()}/addFile/${transactionId}`;
-        req.open("POST", url, true);
-        req.setRequestHeader("x-dossier-path", fileName);
-        req.onload = function (oEvent) {
-            callback();
-        };
-
-        req.send(fileData);
     }
 
 
@@ -72,16 +80,8 @@ export default class DossierBuilder {
                 return callback(err);
             }
 
-            const baseURL = getBaseURL();
-            const req = new XMLHttpRequest();
-            const url = `${baseURL}/build/${transactionId}`;
-
-            req.open("POST", url, true);
-            req.onload = function (oEvent) {
-                callback(undefined, req.response);
-            };
-
-            req.send();
+            const url = `/build/${transactionId}`;
+            doPost(url, callback);
         });
     }
 }

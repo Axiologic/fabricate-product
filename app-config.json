@@ -16,6 +16,10 @@
     "pages": [
       {
         "name": "Fabricate"
+      },
+      {
+        "name": "Product history",
+        "indexed": false
       }
     ]
   }

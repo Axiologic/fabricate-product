@@ -23,22 +23,41 @@ export default class productController extends ContainerController {
                 return;
             }
 
-            this.buildDossier(product.serialID, "description.json", JSON.stringify(product));
+            this.buildDossier(product.serialID, "description.json", JSON.stringify(product), (err, seed) => {
+                this.showError(err);
+                let productHistory = localStorage.getItem("productHistory");
+                if (!productHistory) {
+                    productHistory = [];
+                } else {
+                    productHistory = JSON.parse(productHistory);
+                }
+                productHistory.push({description: JSON.stringify(product), seed: seed});
+                localStorage.setItem("productHistory", JSON.stringify(productHistory));
+                history.push({
+                    pathname: "product-history",
+                    state: {
+                        productIndex: productHistory.length - 1
+                    }
+                });
+            });
         });
     }
 
-    buildDossier(seedKey, fileName, fileData) {
+    buildDossier(seedKey, fileName, fileData, callback) {
         const dossierBuilder = new DossierBuilder();
         dossierBuilder.getTransactionId((err, transactionId) => {
-            this.showError(err);
+            if (err) {
+                return callback(err);
+            }
             dossierBuilder.setSeedKey(transactionId, seedKey, (err) => {
-                this.showError(err);
-
+                if (err) {
+                    return callback(err);
+                }
                 dossierBuilder.addFileDataToDossier(transactionId, fileName, fileData, (err) => {
-                    this.showError(err);
-                    dossierBuilder.buildDossier(transactionId, (err, seed) => {
-                        this.showError(err);
-                    });
+                    if (err) {
+                        return callback(err);
+                    }
+                    dossierBuilder.buildDossier(transactionId, callback);
                 })
             })
         });

@@ -2,20 +2,16 @@
     <psk-container controller-name="productController">
         <psk-form>
             <psk-form-row>
-                <psk-text-input label="PRODUCT TYPE SERIAL NUMBER" value="@productTypeSerialNumber" required></psk-text-input>
+                <psk-text-input label="PRODUCT TYPE SERIAL NUMBER" value="@productID" required></psk-text-input>
             </psk-form-row>
             <psk-form-row>
                 <psk-text-input label="Country" value="@country" required></psk-text-input>
             </psk-form-row>
             <psk-form-row>
-                <psk-text-input label="Expiration date" value="@birthday" ></psk-text-input>
+                <psk-text-input label="Expiration date" value="@expiration" ></psk-text-input>
             </psk-form-row>
             <psk-button label="Save product" type="submit" event-name="save-product"></psk-button>
         </psk-form>
         <psk-list-feedbacks></psk-list-feedbacks>
     </psk-container>
 </psk-page>
-PRODUCT TYPE SERIAL NUMBER
-serialID (generate Random)
-Country
-expiration date
