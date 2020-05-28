@@ -12,6 +12,7 @@ export default class Product {
     productID;
     country;
     expiration;
+    serialNumber;
 
     constructor(product) {
         if (typeof product !== undefined) {
@@ -19,7 +20,7 @@ export default class Product {
                 this[prop] = product[prop];
             }
         }
-        this.serialID = generateID(32);
+        this.serialNumber = generateID(32);
     }
 
     validate() {
