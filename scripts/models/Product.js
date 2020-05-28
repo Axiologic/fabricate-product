@@ -1,4 +1,12 @@
-const crypto = require("pskcrypto");
+function generateID(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 export default class Product {
     productID;
     country;
@@ -9,7 +17,7 @@ export default class Product {
                 this[prop] = product[prop];
             }
         }
-        this.serialID = crypto.randomBytes(32).toString("hex");
+        this.serialID = generateID(32);
     }
 
     validate(){
