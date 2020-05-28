@@ -22,7 +22,6 @@ export default class productController extends ContainerController {
                 }
                 return;
             }
-            debugger
             this.buildDossier(product.serialID, "description.json", JSON.stringify(product), (err, seed) => {
                 this.showError(err);
                 let productHistory = localStorage.getItem("productHistory");
