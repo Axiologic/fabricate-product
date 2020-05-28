@@ -1,5 +1,5 @@
 import ContainerController from '../../cardinal/controllers/base-controllers/ContainerController.js';
-import Product from './../models/product.js';
+import Product from '../models/Product.js';
 import DossierBuilder from "../services/DossierBuilder.js";
 
 export default class productController extends ContainerController {
@@ -31,14 +31,9 @@ export default class productController extends ContainerController {
                 } else {
                     productHistory = JSON.parse(productHistory);
                 }
-                productHistory.push({description: JSON.stringify(product), seed: seed});
+                productHistory.unshift(seed);
                 localStorage.setItem("productHistory", JSON.stringify(productHistory));
-                history.push({
-                    pathname: "product-history",
-                    state: {
-                        productIndex: productHistory.length - 1
-                    }
-                });
+                history.push("/fabricate-product/history");
             });
         });
     }

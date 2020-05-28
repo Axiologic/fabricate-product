@@ -40,13 +40,8 @@ function doPost(url, data, options, callback) {
             if (!response.ok) {
                 throw new Error(`Post request failed.`);
             }
-            let jsonData;
-            try {
-                jsonData = JSON.parse(data);
-            } catch (e) {
-                return callback(undefined, data);
-            }
-            callback(undefined, jsonData);
+
+            callback(undefined, data);
         })
     }).catch(err => {
         return callback(err);
