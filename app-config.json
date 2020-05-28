@@ -1,12 +1,13 @@
 {
-  "basePagesUrl": "pages/",
   "profile": {
-    "username": "Cardinal",
+    "username": "Production User",
     "email": "cardinal@axiologic.net",
     "avatar": "assets/images/cardinal.png"
   },
   "menu": {
     "defaultMenuConfig": {
+      "pagePrefix": "?",
+      "historyType": "query",
       "icon": "fa-bars",
       "type": "route",
       "component": "psk-page-loader",
