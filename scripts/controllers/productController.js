@@ -32,7 +32,7 @@ export default class productController extends ContainerController {
                 }
                 productHistory.unshift(seed);
                 localStorage.setItem("productHistory", JSON.stringify(productHistory));
-                history.push("/fabricate-product/history");
+                history.push("?history");
             });
         });
     }
