@@ -26,6 +26,11 @@
     flex:2;
 }
 
+.container {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
 .toc {
     flex: 1;
     order: 2;
