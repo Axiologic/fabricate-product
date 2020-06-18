@@ -19,7 +19,7 @@ div.global_container.is-mobile {
 
 aside {
     height: 100%;
-    background-image: linear-gradient(180deg, #5e7fe1 30%, #354f9b 100%);
+    background-image: linear-gradient(180deg, #f9b123 30%, #d2931a 100%);
     color: white;
     order: 1;
     flex: 0.5;

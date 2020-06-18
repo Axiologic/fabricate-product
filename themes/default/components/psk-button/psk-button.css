@@ -1,13 +1,13 @@
 .btn.btn-primary,
 .submit {
-    background-color: #4C71DE;
+    background-color: #e9510e;
     border-style: none;
-    box-shadow: rgba(53, 79, 155, 0.35) 0px 15px 30px -12px;
+    /*box-shadow: rgba(53, 79, 155, 0.35) 0px 15px 30px -12px;*/
     padding: 8px 16px;
     margin-right: 10px;
     border-radius: 5px;
     margin-bottom: 1rem;
-    border:1px solid #4C71DE;
+    border:1px solid #e9510e;
     color:white;
 }
 
@@ -20,8 +20,8 @@
 
 .btn.btn-primary:hover,
 .submit:hover {
-    background-color: #5E7FE1;
-    border-style: none;
+    background-color: #f9b123;
+    border:1px solid #e9510e;
     box-shadow: none;
 }
 .submit{

@@ -1,8 +1,9 @@
 {
+  "appVersion": "1.0.0-alpha",
   "profile": {
-    "username": "Production User",
-    "email": "cardinal@axiologic.net",
-    "avatar": "assets/images/cardinal.png"
+    "username": "Worker",
+    "email": "prod.user@novartis.com",
+    "avatar": "assets/images/production_worker_avatar.jpg"
   },
   "menu": {
     "defaultMenuConfig": {
