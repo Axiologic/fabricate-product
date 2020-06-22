@@ -1,17 +1,9 @@
-function generateID(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
+import Utils from "./Utils.js";
 
 export default class Product {
     productID;
     country;
-    expiration;
+    batch;
     serialNumber;
 
     constructor(product) {
@@ -20,7 +12,7 @@ export default class Product {
                 this[prop] = product[prop];
             }
         }
-        this.serialNumber = generateID(32);
+        this.serialNumber = Utils.generateID(32);
     }
 
     validate() {
@@ -33,8 +25,8 @@ export default class Product {
             errors.push('Country is required.');
         }
 
-        if (!this.expiration) {
-            errors.push('Expiration date is required.');
+        if (!this.batch) {
+            errors.push('Batch is required.');
         }
 
         return errors.length === 0 ? true : errors;

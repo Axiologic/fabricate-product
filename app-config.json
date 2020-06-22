@@ -22,6 +22,10 @@
       {
         "name": "History",
         "indexed": false
+      },
+      {
+        "name": "Add batch",
+        "indexed": false
       }
     ]
   }

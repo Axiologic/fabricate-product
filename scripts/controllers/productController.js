@@ -1,19 +1,40 @@
 import ContainerController from '../../cardinal/controllers/base-controllers/ContainerController.js';
 import Product from '../models/Product.js';
 import DossierBuilder from "../services/DossierBuilder.js";
-
+import Batch from "../models/Batch.js";
 export default class productController extends ContainerController {
     constructor(element, history) {
         super(element);
 
-        this.setModel(new Product());
+        this.setModel({});
+        this.model.product = new Product();
+
+        let batches = localStorage.getItem("batches");
+        if (!batches) {
+            batches = [];
+        } else {
+            batches = JSON.parse(batches);
+        }
+
+        let options = [];
+        batches.forEach(batch => options.push(new Batch(batch).generateViewModel()));
+        this.model.batches = {
+            label: "Batch",
+            placeholder: "Select a batch",
+            options: options
+        };
 
         this.on('openFeedback', (e) => {
             this.feedbackEmitter = e.detail;
         });
 
+        this.on("batch-selected", (event) => {
+            let batch = batches.find(batch => batch.lotNumber === this.model.product.batch);
+            this.model.expiration = batch.expiration;
+        }, {capture: true});
+
         this.on("save-product", (event) => {
-            let product = this.model;
+            let product = this.model.product;
             let validationResult = product.validate();
             if (Array.isArray(validationResult)) {
                 for (let i = 0; i < validationResult.length; i++) {
