@@ -7,5 +7,9 @@ export default {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
+    },
+
+    generateSerialNumber(){
+        return Math.round(Math.random() * 1000000).toString();
     }
 }

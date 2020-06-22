@@ -18,7 +18,7 @@ function doPost(url, data, options, callback) {
         options = {};
     }
 
-    if (typeof data === "object" && !Buffer.isBuffer(data)) {
+    if (typeof data === "object") {
         options = data;
         data = undefined;
     }
@@ -41,9 +41,11 @@ function doPost(url, data, options, callback) {
                 throw new Error(`Post request failed.`);
             }
 
+            console.log("Just post ============================ ", url, data);
             callback(undefined, data);
         })
     }).catch(err => {
+        console.log("Errooooooooooooooooor +++++++++++", err);
         return callback(err);
     });
 }
@@ -68,6 +70,15 @@ export default class DossierBuilder {
 
     }
 
+    mount(transactionId, path, seed, callback){
+        const url = `/mount/${transactionId}`;
+        doPost(url, {
+            headers: {
+                'x-mount-path': path,
+                'x-mounted-dossier-seed': seed
+            }
+        }, callback);
+    }
 
     buildDossier(transactionId, callback) {
         setEndpoint(transactionId, (err) => {

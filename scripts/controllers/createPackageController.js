@@ -1,13 +1,15 @@
 import ContainerController from '../../cardinal/controllers/base-controllers/ContainerController.js';
-import Product from '../models/Product.js';
+import Package from '../models/Package.js';
 import DossierBuilder from "../services/DossierBuilder.js";
 import Batch from "../models/Batch.js";
-export default class productController extends ContainerController {
+import Countries from "../models/Countries.js";
+
+export default class createPackageController extends ContainerController {
     constructor(element, history) {
         super(element);
 
         this.setModel({});
-        this.model.product = new Product();
+        this.model.package = new Package();
 
         let batches = localStorage.getItem("batches");
         if (!batches) {
@@ -24,17 +26,23 @@ export default class productController extends ContainerController {
             options: options
         };
 
+        this.model.countries = {
+            label: "Country",
+            placeholder: "Select a country",
+            options: Countries.getListAsVM()
+        };
+        
         this.on('openFeedback', (e) => {
             this.feedbackEmitter = e.detail;
         });
 
         this.on("batch-selected", (event) => {
-            let batch = batches.find(batch => batch.lotNumber === this.model.product.batch);
+            let batch = batches.find(batch => batch.batchNumber === this.model.package.batch);
             this.model.expiration = batch.expiration;
         }, {capture: true});
 
-        this.on("save-product", (event) => {
-            let product = this.model.product;
+        this.on("save-package", (event) => {
+            let product = this.model.package;
             let validationResult = product.validate();
             if (Array.isArray(validationResult)) {
                 for (let i = 0; i < validationResult.length; i++) {
@@ -43,36 +51,46 @@ export default class productController extends ContainerController {
                 }
                 return;
             }
-            this.buildDossier(product.serialID, "description.json", JSON.stringify(product), (err, seed) => {
+            this.buildPackageDSU(product, (err, seed) => {
                 this.showError(err);
-                let productHistory = localStorage.getItem("productHistory");
-                if (!productHistory) {
-                    productHistory = [];
+                let packageHistory = localStorage.getItem("packageHistory");
+                if (!packageHistory) {
+                    packageHistory = [];
                 } else {
-                    productHistory = JSON.parse(productHistory);
+                    packageHistory = JSON.parse(packageHistory);
                 }
-                productHistory.unshift(seed);
-                localStorage.setItem("productHistory", JSON.stringify(productHistory));
-                history.push("?history");
+
+                console.log("Just built package DSU", seed);
+                packageHistory.unshift(seed);
+                localStorage.setItem("packageHistory", JSON.stringify(packageHistory));
+                history.push("?packages");
             });
         });
     }
 
-    buildDossier(seedKey, fileName, fileData, callback) {
+    buildPackageDSU(description, callback) {
+        const DESCRIPTION_FILE_NAME = "description.json";
+        const LEAFLET_MOUNT_PATH = "/alabala";
         const dossierBuilder = new DossierBuilder();
         dossierBuilder.getTransactionId((err, transactionId) => {
             if (err) {
                 return callback(err);
             }
-            dossierBuilder.setSeedKey(transactionId, seedKey, (err) => {
+            dossierBuilder.setSeedKey(transactionId, description.serialID, (err) => {
                 if (err) {
                     return callback(err);
                 }
-                dossierBuilder.addFileDataToDossier(transactionId, fileName, fileData, (err) => {
+                dossierBuilder.addFileDataToDossier(transactionId, DESCRIPTION_FILE_NAME, JSON.stringify(description), (err) => {
                     if (err) {
                         return callback(err);
                     }
-                    dossierBuilder.buildDossier(transactionId, callback);
+
+                    dossierBuilder.mount(transactionId, LEAFLET_MOUNT_PATH, description.leaflet, (err) => {
+                        if (err) {
+                            return callback(err);
+                        }
+                        dossierBuilder.buildDossier(transactionId, callback);
+                    });
                 })
             })
         });

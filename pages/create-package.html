@@ -1,0 +1,30 @@
+<psk-page title="Create package">
+    <psk-container controller-name="createPackageController">
+        <psk-form>
+            <psk-form-row>
+                <psk-text-input label="Serial Number" value="@package.serialNumber" read-only="true"></psk-text-input>
+            </psk-form-row>
+            <psk-form-row>
+                <psk-text-input label="Package ID" value="@package.productID" required></psk-text-input>
+            </psk-form-row>
+            <psk-form-row>
+                <psk-text-input label="Leaflet" value="@package.leaflet" required></psk-text-input>
+            </psk-form-row>
+            <psk-form-row>
+                <psk-select view-model="@countries" value="@package.country"></psk-select>
+            </psk-form-row>
+            <psk-form-row>
+                <psk-select view-model="@batches" value="@package.batch" onclick="this.dispatchEvent(new Event('batch-selected'))"></psk-select>
+            </psk-form-row>
+            <psk-form-row>
+                <psk-text-input label="Expiration date" value="@expiration" read-only></psk-text-input>
+            </psk-form-row>
+            <psk-form-row columns="3" layout="xs=[3,6,3] s=[3,6,3] m=[4,4,4] l=[4,4,4]">
+                <div></div>
+                <psk-button label="Save package" type="submit" event-name="save-package"></psk-button>
+                <div></div>
+            </psk-form-row>
+        </psk-form>
+        <psk-list-feedbacks></psk-list-feedbacks>
+    </psk-container>
+</psk-page>

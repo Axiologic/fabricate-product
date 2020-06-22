@@ -16,6 +16,7 @@ export default class addBatchController extends ContainerController {
 
             batches.push(batch);
             localStorage.setItem("batches", JSON.stringify(batches));
+            history.push("?batches");
         });
     }
 };

@@ -1,22 +1,26 @@
+import Utils from "./Utils.js";
 export default class Batch {
-    lotNumber;
+    batchNumber;
     expiration;
 
-    constructor(product) {
-        if (typeof product !== undefined) {
-            for (let prop in product) {
-                this[prop] = product[prop];
+    constructor(batch) {
+        if (typeof batch !== undefined) {
+            for (let prop in batch) {
+                this[prop] = batch[prop];
             }
+        }
+        if (!this.batchNumber) {
+            this.batchNumber = Utils.generateSerialNumber();
         }
     }
 
     generateViewModel() {
-        return {label: this.lotNumber, value: this.lotNumber}
+        return {label: this.batchNumber, value: this.batchNumber}
     }
 
     validate() {
         const errors = [];
-        if (!this.lotNumber) {
+        if (!this.batchNumber) {
             errors.push('Lot number is required.');
         }
 

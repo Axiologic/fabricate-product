@@ -17,14 +17,17 @@
     },
     "pages": [
       {
-        "name": "Fabricate"
+        "name": "Packages"
       },
       {
-        "name": "History",
-        "indexed": false
+        "name": "Batches"
       },
       {
         "name": "Add batch",
+        "indexed": false
+      },
+      {
+        "name": "Create package",
         "indexed": false
       }
     ]

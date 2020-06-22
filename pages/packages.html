@@ -1,0 +1,16 @@
+<psk-page title="Packages">
+    <psk-form controller-name="packagesController">
+        <psk-for-each data-view-model="@seeds">
+            <psk-form-row class="withSeparator">
+                <psk-label label="@seed"></psk-label>
+            </psk-form-row>
+            <div slot="no-data">No Packages.</div>
+        </psk-for-each>
+        <psk-form-row columns="3" layout="xs=[3,6,3] s=[3,6,3] m=[4,4,4] l=[4,4,4]">
+            <div></div>
+            <psk-button label="Create package" event-name="create-package"></psk-button>
+            <div></div>
+        </psk-form-row>
+    </psk-form>
+
+</psk-page>
