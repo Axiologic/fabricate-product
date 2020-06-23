@@ -70,7 +70,7 @@ export default class createPackageController extends ContainerController {
 
     buildPackageDSU(description, callback) {
         const DESCRIPTION_FILE_NAME = "description.json";
-        const LEAFLET_MOUNT_PATH = "/alabala";
+        const LEAFLET_MOUNT_PATH = "/leaflet";
         const dossierBuilder = new DossierBuilder();
         dossierBuilder.getTransactionId((err, transactionId) => {
             if (err) {
