@@ -11,10 +11,10 @@
                 <psk-text-input label="Leaflet" placeholder="Insert approved leaflet DSU SEED" value="@package.leaflet" required></psk-text-input>
             </psk-form-row>
             <psk-form-row>
-                <psk-select view-model="@countries" value="@package.country"></psk-select>
+                <psk-select view-model="@countries" value="@package.country" required></psk-select>
             </psk-form-row>
             <psk-form-row>
-                <psk-select view-model="@batches" value="@package.batch" onclick="this.dispatchEvent(new Event('batch-selected'))"></psk-select>
+                <psk-select view-model="@batches" value="@package.batch" onclick="this.dispatchEvent(new Event('batch-selected'))" required></psk-select>
             </psk-form-row>
             <psk-form-row>
                 <psk-text-input label="Expiration date" value="@expiration" read-only></psk-text-input>
