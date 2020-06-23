@@ -60,7 +60,6 @@ export default class createPackageController extends ContainerController {
                     packageHistory = JSON.parse(packageHistory);
                 }
 
-                console.log("Just built package DSU", seed);
                 packageHistory.unshift(seed);
                 localStorage.setItem("packageHistory", JSON.stringify(packageHistory));
                 history.push("?packages");

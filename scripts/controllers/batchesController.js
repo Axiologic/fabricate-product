@@ -9,7 +9,6 @@ export default class batchesController extends ContainerController {
             batches.forEach(batch => model.batches.push(new Batch(batch)));
         }
 
-        console.log('Batches be batches', model.batches);
         this.setModel(model);
 
         this.on("add-batch", () => {
