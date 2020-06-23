@@ -41,11 +41,9 @@ function doPost(url, data, options, callback) {
                 throw new Error(`Post request failed.`);
             }
 
-            console.log("Just post ============================ ", url, data);
             callback(undefined, data);
         })
     }).catch(err => {
-        console.log("Errooooooooooooooooor +++++++++++", err);
         return callback(err);
     });
 }
