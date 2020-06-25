@@ -25,12 +25,6 @@ export default class createPackageController extends ContainerController {
             placeholder: "Select a batch",
             options: options
         };
-
-        this.model.countries = {
-            label: "Country",
-            placeholder: "Select a country",
-            options: Countries.getListAsVM()
-        };
         
         this.on('openFeedback', (e) => {
             this.feedbackEmitter = e.detail;
@@ -39,6 +33,10 @@ export default class createPackageController extends ContainerController {
         this.on("batch-selected", (event) => {
             let batch = batches.find(batch => batch.batchNumber === this.model.package.batch);
             this.model.expiration = batch.expiration;
+            this.model.productID = batch.productID;
+            this.model.leaflet = batch.leaflet;
+            this.model.country = batch.country;
+
         }, {capture: true});
 
         this.on("save-package", (event) => {

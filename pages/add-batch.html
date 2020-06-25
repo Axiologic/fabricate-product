@@ -4,6 +4,15 @@
             <psk-text-input label="Batch number" value="@batchNumber" read-only></psk-text-input>
         </psk-form-row>
         <psk-form-row>
+            <psk-text-input label="Product ID" placeholder="Insert product type DSU SEED" value="@productID" required></psk-text-input>
+        </psk-form-row>
+        <psk-form-row>
+            <psk-text-input label="Leaflet" placeholder="Insert approved leaflet DSU SEED" value="@leaflet" required></psk-text-input>
+        </psk-form-row>
+        <psk-form-row>
+            <psk-select view-model="@countries" value="@country" required></psk-select>
+        </psk-form-row>
+        <psk-form-row>
             <psk-date-input data-format="DD MM YYYY" label="Expiration date" value="@expiration" ></psk-date-input>
         </psk-form-row>
         <psk-form-row columns="3" layout="xs=[3,6,3] s=[3,6,3] m=[4,4,4] l=[4,4,4]">

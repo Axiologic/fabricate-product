@@ -1,9 +1,6 @@
 import Utils from "./Utils.js";
 
 export default class Package {
-    productID;
-    leaflet;
-    country;
     batch;
     serialNumber;
 
@@ -18,16 +15,6 @@ export default class Package {
 
     validate() {
         const errors = [];
-        if (!this.productID) {
-            errors.push('Product type ID is required.');
-        }
-        if (!this.leaflet) {
-            errors.push('Leaflet is required.');
-        }
-
-        if (!this.country) {
-            errors.push('Country is required.');
-        }
 
         if (!this.batch) {
             errors.push('Batch is required.');
