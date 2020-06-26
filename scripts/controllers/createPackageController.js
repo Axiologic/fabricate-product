@@ -35,7 +35,7 @@ export default class createPackageController extends ContainerController {
             this.model.expiration = batch.expiration;
             this.model.productID = batch.productID;
             this.model.leaflet = batch.leaflet;
-            this.model.country = batch.country;
+            this.model.country = Countries.getCountry(batch.country);
 
         }, {capture: true});
 
