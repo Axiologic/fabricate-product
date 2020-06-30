@@ -32,8 +32,10 @@ aside {
 }
 
 .nav-footer {
+    position: fixed;
+    bottom: 0;
     text-align: center;
-    width: 100%;
+    width: 320px;
     padding: 10px;
     color: #fff;
     box-sizing: border-box;
