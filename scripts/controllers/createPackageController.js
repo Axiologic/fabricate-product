@@ -33,7 +33,6 @@ export default class createPackageController extends ContainerController {
         this.on("batch-selected", (event) => {
             let batch = batches.find(batch => batch.batchNumber === this.model.package.batch);
             this.model.expiration = batch.expiration;
-            this.model.productID = batch.productID;
             this.model.leaflet = batch.leaflet;
             this.model.country = Countries.getCountry(batch.country);
 
