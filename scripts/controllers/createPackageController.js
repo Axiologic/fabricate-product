@@ -39,15 +39,7 @@ export default class createPackageController extends ContainerController {
         }, {capture: true});
 
         this.on("save-package", (event) => {
-            let product = this.model.package;
-            let validationResult = product.validate();
-            if (Array.isArray(validationResult)) {
-                for (let i = 0; i < validationResult.length; i++) {
-                    let err = validationResult[i];
-                    this.showError(err);
-                }
-                return;
-            }
+            let product = this.model;
             this.buildPackageDSU(product, (err, seed) => {
                 this.showError(err);
                 let packageHistory = localStorage.getItem("packageHistory");
