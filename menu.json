@@ -10,10 +10,10 @@
   },
   "pages": [
     {
-      "name": "Packages"
+      "name": "Batches"
     },
     {
-      "name": "Batches"
+      "name": "Packages"
     },
     {
       "name": "Add batch",

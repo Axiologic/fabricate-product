@@ -8,7 +8,8 @@ function getBaseURL() {
 
 function setEndpoint(transactionId, callback) {
     const url = `/setEndpoint/${transactionId}`;
-    const endpoint = "http://localhost:8080";
+    const endpoint = window.location.origin;
+    //const endpoint = "http://localhost:8080";
     doPost(url, endpoint, callback);
 }
 
