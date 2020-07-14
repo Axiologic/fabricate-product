@@ -81,12 +81,14 @@
     },
     {
       "name": "citrus-theme",
-      "src": "https://github.com/privatesky/citrus-theme.git",
       "actions": [
         {
-          "type": "smartClone",
-          "target": "./themes",
-          "collectLog": false
+          "type": "copy",
+          "src": "../../themes/citrus-theme/src",
+          "target": "themes/citrus-theme",
+          "options": {
+            "overwrite": true
+          }
         }
       ]
     }
