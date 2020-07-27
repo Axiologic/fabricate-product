@@ -30,13 +30,12 @@ export default class createPackageController extends ContainerController {
             this.feedbackEmitter = e.detail;
         });
 
-        this.on("batch-selected", (event) => {
-            let batch = batches.find(batch => batch.batchNumber === this.model.package.batch);
+        this.model.onChange("batches.value", (event)=>{
+            let batch = batches.find(batch => batch.batchNumber === this.model.batches.value);
             this.model.expiration = batch.expiration;
             this.model.leaflet = batch.leaflet;
             this.model.country = Countries.getCountry(batch.country);
-
-        }, {capture: true});
+        })
 
         this.on("save-package", (event) => {
             let product = this.model;
